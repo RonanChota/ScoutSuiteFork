@@ -10,13 +10,9 @@ from ScoutSuite.providers.base.authentication_strategy import AuthenticationStra
 
 class OracleCredentials:
 
-    def __init__(self, config : dict):
+    def __init__(self, config : dict, signer : InstancePrincipalsSecurityTokenSigner):
         self.config = config
-        self.signer = None
-
-    def __init__(self, signer: InstancePrincipalsSecurityTokenSigner):
-        self.signer = signer 
-        self.config = {}
+        self.signer = signer
 
     def get_scope(self):
         
@@ -41,7 +37,7 @@ class OracleAuthenticationStrategy(AuthenticationStrategy):
             # Set logging level to error for libraries as otherwise generates a lot of warnings
             logging.getLogger('oci').setLevel(logging.ERROR)
             
-            config = {}
+            config = None
             signer = None
             if kwargs["oci_use_inspr"]:
                 signer = InstancePrincipalsSecurityTokenSigner()
@@ -51,7 +47,7 @@ class OracleAuthenticationStrategy(AuthenticationStrategy):
 
             # Get the current user
             identity = IdentityClient(config=config, signer=signer)
-            return OracleCredentials(config if config is not None else signer)
+            return OracleCredentials(config, signer)
 
         except Exception as e:
             raise AuthenticationException(e)
