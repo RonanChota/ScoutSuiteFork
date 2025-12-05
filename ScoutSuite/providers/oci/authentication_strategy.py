@@ -46,11 +46,11 @@ class OracleAuthenticationStrategy(AuthenticationStrategy):
             if kwargs["oci_use_inspr"]:
                 signer = InstancePrincipalsSecurityTokenSigner()
             else: 
+                print(kwargs["oci_use_inspr"])
                 config = from_file(profile_name=profile)
 
             # Get the current user
             identity = IdentityClient(config=config, signer=signer)
-            print(kwargs["oci_use_inspr"])
             return OracleCredentials(config if config is not None else signer)
 
         except Exception as e:
