@@ -50,6 +50,7 @@ class OracleAuthenticationStrategy(AuthenticationStrategy):
 
             # Get the current user
             identity = IdentityClient(config=config, signer=signer)
+            print("hello world")
             return OracleCredentials(config if config is not None else signer)
 
         except Exception as e:
