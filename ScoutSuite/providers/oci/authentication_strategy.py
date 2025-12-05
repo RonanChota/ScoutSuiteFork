@@ -44,7 +44,8 @@ class OracleAuthenticationStrategy(AuthenticationStrategy):
             else: 
                 print(kwargs["oci_use_inspr"])
                 config = from_file(profile_name=profile)
-
+            
+            print(signer)
             # Get the current user
             identity = IdentityClient(config=config, signer=signer)
             return OracleCredentials(config, signer)
