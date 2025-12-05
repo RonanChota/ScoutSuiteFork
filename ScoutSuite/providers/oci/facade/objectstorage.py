@@ -13,7 +13,7 @@ class ObjectStorageFacade:
 
     async def get_namespace(self):
         try:
-            response = await self._client.get_namespace()
+            response = self._client.get_namespace()
             return response.data
         except Exception as e:
             print_exception(f'Failed to get Object Storage namespace: {e}')
