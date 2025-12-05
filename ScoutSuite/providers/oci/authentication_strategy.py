@@ -17,7 +17,9 @@ class OracleCredentials:
     def get_scope(self):
         
         if self.signer is not None:
+            print("get scope called")
             return self.signer.tenancy_id
+            print("get scope finished")
 
         if 'compartment-id' in self.config:
             return self.config['compartment-id']
